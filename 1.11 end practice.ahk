@@ -2,12 +2,12 @@
 #SingleInstance force
 
 ; Delay / Wait Settings
-global keydelay := 70
+global keydelay := 100
 global worldgenkeydelay := 500
 global worldquitkeydelay := 300
 global worldgenwait := 5000
-global loadwait := 800
-global commanddelay := 70
+global loadwait := 1000
+global commanddelay := 100
 global commandinputdelay := 300
 global altcommanddelay := 600
 global perchcommanddelay := 1000
@@ -15,13 +15,18 @@ global perchcommanddelay := 1000
 ; Hotkey Settings
 global Resethotkey := "*K"
 global ResetinMainMenuhotkey := "*I"
+global PerchCommandhotkey := "*P"
+global AltCommandhotkey := "*L"
 
-; Commands
+; Auto Commands
 global ow_command := ["give @p bed", "give @p bed", "give @p bed", "give @p bed", "give @p bed", "give @p bed", "give @p shield", "setblock ~ ~ ~ end_portal"]
 global end_command := ["tp @p 0 70 0 0 0"]
-global alt_command := ["execute @p ~ ~ ~ fill 0 ~-3 -1 0 ~-3 -2 minecraft:end_stone", "execute @p ~ ~ ~ fill 0 ~-2 1 0 ~-4 2 minecraft:end_stone", "tp @p 0 65 -6 0 0"]
-global perch_command := ["gamemode 0", "entitydata @e[type=ender_dragon] {{}DragonPhase:2{}}"]
+global alt_command := ["fill 0 ~-3 -1 0 ~-3 -2 minecraft:end_stone", "fill 0 ~-2 1 0 ~-4 2 minecraft:end_stone", "tp @p 0 65 -6 0 0", "gamemode 0"]
+global perch_command := ["entitydata @e[type=ender_dragon] {{}DragonPhase:2{}}"]
 
+; Self Commands
+global self_alt_command := ["kill @e[type=minecraft:area_effect_cloud]"]
+global self_perch_command := ["entitydata @e[type=ender_dragon] {{}DragonPhase:2{}}"]
 
 
 ; Do Not Edit
@@ -67,6 +72,16 @@ SendCommands(commands) {
     }
 }
 
+AltCommand() {
+    SendCommands(self_alt_command)
+}
+
+PerchCommand() {
+    SendCommands(self_perch_command)
+}
+
 #If WinActive("Minecraft") && (WinActive("ahk_exe javaw.exe") || WinActive("ahk_exe java.exe"))
     Hotkey, %Resethotkey%, ResetGen
     Hotkey, %ResetinMainMenuhotkey%, WorldGenFromMainMenu
+    Hotkey, %PerchCommandhotkey%, PerchCommand
+    Hotkey, %AltCommandhotkey%, AltCommand

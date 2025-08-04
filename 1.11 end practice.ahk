@@ -4,13 +4,13 @@
 ; Delay / Wait Settings
 global keydelay := 100
 global worldgenkeydelay := 500
-global worldquitkeydelay := 300
+global worldquitloaddelay := 300
 global worldgenwait := 5000
-global loadwait := 1000
+global loadwait := 1000  ; demension load wait
 global commanddelay := 100
 global commandinputdelay := 300
-global altcommanddelay := 600
-global perchcommanddelay := 1000
+global altcommanddelay := 600  ; delay for end commands to alt command
+global perchcommanddelay := 1000  ; delay for alt command to perch command
 
 ; Hotkey Settings
 global Resethotkey := "*K"
@@ -58,7 +58,7 @@ WorldQuit() {
   
 ResetGen() {
     WorldQuit()
-    Sleep, % worldquitkeydelay
+    Sleep, % worldquitloaddelay
     WorldGen()
 }
 
